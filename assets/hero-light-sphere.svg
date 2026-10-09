@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 440 440" fill="none">
+  <defs>
+    <linearGradient id="light" x1="150" y1="12" x2="166" y2="312" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071321"/><stop offset=".18" stop-color="#103345"/>
+      <stop offset=".41" stop-color="#237f93"/><stop offset=".56" stop-color="#94bbb6"/>
+      <stop offset=".69" stop-color="#e8c5a0"/><stop offset=".82" stop-color="#ff9956"/>
+      <stop offset="1" stop-color="#f15029"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="180" y1="8" x2="115" y2="305" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#93a590" stop-opacity=".3"/><stop offset=".34" stop-color="#89b3bb" stop-opacity=".55"/>
+      <stop offset=".65" stop-color="#ffdea4"/><stop offset=".88" stop-color="#fff1c2"/>
+      <stop offset="1" stop-color="#ffd191"/>
+    </linearGradient>
+    <radialGradient id="shade" cx=".64" cy=".12" r=".85">
+      <stop stop-color="#05091b" stop-opacity=".72"/><stop offset=".62" stop-color="#071827" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#b84022" stop-opacity=".1"/>
+    </radialGradient>
+    <filter id="wide" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="17"/></filter>
+    <filter id="bloom" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5.5"/></filter>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.4"/></filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+  <circle cx="160" cy="160" r="149" stroke="url(#rim)" stroke-width="15" filter="url(#wide)" opacity=".65"/>
+  <circle cx="160" cy="160" r="148" fill="url(#light)" filter="url(#soft)"/>
+  <circle cx="160" cy="160" r="148" fill="url(#shade)"/>
+  <circle cx="160" cy="160" r="149" stroke="url(#rim)" stroke-width="9" filter="url(#bloom)"/>
+  <circle cx="160" cy="160" r="149" stroke="url(#rim)" stroke-width="2.7" filter="url(#soft)"/>
+  <circle cx="160" cy="160" r="147" fill="#fff" filter="url(#grain)" opacity=".07"/>
+</svg>
