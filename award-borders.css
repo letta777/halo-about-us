@@ -1,0 +1,7 @@
+/* Moving light is clipped to the border; the glass face stays unchanged. */
+#recognition .award-border-light{position:absolute;inset:0;border-radius:inherit;padding:1.5px;overflow:hidden;pointer-events:none;opacity:0;visibility:hidden;z-index:1;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+#recognition .award-border-sweep{position:absolute;inset:-100%;background:conic-gradient(from 0deg,transparent 0deg,#c7b7ff80 40deg,#a7e6ffd9 75deg,#f7ffff 90deg,#bddfff9c 110deg,transparent 155deg,transparent 220deg,#a9b9ff6b 280deg,transparent 325deg);transform-origin:50% 50%}
+#recognition .award-border-spot{position:absolute;top:0;left:0;width:240px;height:240px;background:radial-gradient(circle,#fff 0%,#ddf9fff2 14%,#92dfffaa 31%,#b4a3ff55 50%,transparent 70%)}
+@media(hover:hover) and (prefers-reduced-motion:reduce){
+ #recognition .award:hover::before{background:linear-gradient(135deg,#e6fbff,#8cceff 35%,#c9b7ff 65%,#edfbff)}
+}

@@ -1,0 +1,66 @@
+/* Detailed Figma review: 81752:17870, 86484:52370, 86481:52130. */
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+/* Homepage logo strip: 22px label, 36px gap, 36px logos, eight slots / 64px gap. */
+#clients.site-clients{--client-gap:4rem;--client-columns:8;--client-width:calc((min(82rem,100vw - 8rem) - 7 * var(--client-gap)) / 8);color:#fff;background:transparent;margin-top:6.5rem;overflow:hidden}
+#clients .container{width:100%;max-width:82rem}
+#clients .success__label{font-size:1.375rem;line-height:1;letter-spacing:.04ch;padding:0 1.5rem;opacity:.6}
+#clients .columns.mod--success-title.mod--logo{margin-bottom:2.25rem}
+#clients .trusted__img{height:2.25rem;opacity:.7}
+#clients .trusted__img svg{height:100%;width:auto;max-width:none}
+#clients .splide__track{overflow:visible}
+#clients .splide__slide{width:var(--client-width);flex:0 0 var(--client-width)}
+.client-marquee-track{display:flex;width:max-content;animation:client-strip var(--client-duration,74s) linear infinite}
+.client-marquee-run{display:flex;gap:var(--client-gap);padding-right:var(--client-gap);flex:none}
+@keyframes client-strip{to{transform:translateX(-50%)}}
+.letter-avatar.upright-portrait{transform:rotate(16deg)}
+/* Statistics: the caption + 192px metrics row matches the 214px Results frame. */
+.stats-caption p{margin:0}
+.stats{height:12rem;min-height:0;align-items:start}
+.stats>div{gap:1.25rem}
+/* Match the reference card's 640 x 568, 40px insets and 24px text gap. */
+#teams .card,#teams .card:nth-child(2){height:35.5rem;min-height:35.5rem;padding:2.5rem;position:relative;overflow:hidden}
+#teams .card:first-child{background:linear-gradient(180deg,#D8CEEF 0%,#F5F3F6 73%,#FFFFFF 100%)}
+#teams .card:nth-child(2){background:linear-gradient(180deg,#B9D1ED 0%,#F5F7FA 73%,#FFFFFF 100%)}
+#teams .tag{position:relative;z-index:1;align-self:flex-start;font-size:.875rem}
+#teams .glass-unit-art{position:absolute;top:1.5rem;right:1.5rem;width:27rem;height:18rem;margin:0;pointer-events:none}
+#teams .glass-unit-art img{filter:none;object-fit:contain}
+#teams h3{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:3.5rem;font-weight:400;line-height:1;letter-spacing:-.02em;margin-top:auto;margin-bottom:1.5rem;position:relative;z-index:1}
+#teams .card p{max-width:29.25rem;font-size:1rem;line-height:1.6;letter-spacing:0;color:#02021e80;margin:0;position:relative;z-index:1}
+/* Shared section title treatment from the supplied typography screenshots. */
+#work>.eyebrow,.site-principles .h2-label{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.375rem;line-height:1;letter-spacing:.02em;margin:0 0 1rem;text-align:center}
+#work>.eyebrow{color:#02021e99}
+#work>h2,.site-principles h2{font-family:Suisse,Arial,sans-serif;font-weight:600;font-size:var(--h2);line-height:1.1;letter-spacing:-.02em;margin-top:0}
+.site-principles .heading-center-wrap{gap:0}
+/* One uninterrupted gradient; each section shows the same underlying surface. */
+.brand-story{isolation:isolate;background:linear-gradient(180deg,#02021e 0%,#02021e 16%,#071b4b 28%,#134ea4 45%,#3b7ed1 57%,#93b8e7 76%,#e8eef9 91%,#f8f9fd 100%)}
+.brand-story .site-principles,.brand-story #main-principles,.brand-story #recognition,.brand-story #ongoing-partnership,.brand-story .site-cta,.brand-story .site-cta .section.mod--new-discuss{background:transparent}
+.brand-story .site-cta .new-discuss__bg-grad{display:none}
+.brand-story #recognition{padding-top:4rem;padding-bottom:6rem}
+.brand-story #ongoing-partnership{padding-top:4rem;padding-bottom:0}
+/* Optical sizing uses the visible vector bounds, not padded square viewBoxes. */
+.award-mark,.award:nth-child(n) .award-mark{height:2.5rem;display:flex;align-items:center;justify-content:center}
+.award-mark img{height:2.25rem;width:auto;max-width:4.5rem;object-fit:contain}
+.award:nth-child(1) .award-mark img,.award:nth-child(7) .award-mark img{height:1.75rem}
+.award:nth-child(2) .award-mark img{height:1.75rem}
+.award:nth-child(3) .award-mark img{height:2rem}
+.award:nth-child(5) .award-mark img{height:2.25rem}
+.award:nth-child(6) .award-mark img,.award:nth-child(8) .award-mark img{height:2.5rem}
+@media(max-width:991px){
+ #clients.site-clients{--client-width:calc((100vw - 2.5rem - 4 * var(--client-gap)) / 5)}
+ #teams .glass-unit-art{width:24rem;right:.5rem}
+}
+@media(max-width:600px){
+ #clients .success__label{font-size:1.1rem;padding:0 .75rem;white-space:nowrap}
+ #clients.site-clients{margin-top:4.5rem}
+ #teams .card,#teams .card:nth-child(2){height:auto;min-height:32rem;padding:1.5rem}
+ #teams .glass-unit-art{position:relative;width:100%;height:14rem;top:auto;right:auto;margin:.5rem 0 1.5rem}
+ #teams h3{font-size:2.4rem;margin-top:auto;margin-bottom:1.5rem}
+ #teams .card p{font-size:.9rem}
+ #work>.eyebrow,.site-principles .h2-label{font-size:1.1rem}
+ .stats{height:auto;min-height:0}
+ .brand-story #recognition{padding-top:3.5rem;padding-bottom:4rem}
+ .brand-story #ongoing-partnership{padding-top:2rem}
+ .brand-story{background:linear-gradient(180deg,#02021e 0%,#02021e 24%,#071b4b 35%,#134ea4 51%,#3b7ed1 63%,#93b8e7 78%,#e8eef9 93%,#f8f9fd 100%)}
+}
+@media(max-width:479px){#clients.site-clients{--client-gap:2.25rem;--client-width:calc((100vw - 2rem - 2 * var(--client-gap)) / 3)}}
+@media(prefers-reduced-motion:reduce){.client-marquee-track{animation:none}}
