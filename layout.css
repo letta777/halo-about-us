@@ -23,16 +23,23 @@
 /* Exact card geometry, text boxes and 40px insets at the 1440px design width. */
 #teams .card,#teams .card:nth-child(2){height:35.5rem;min-height:35.5rem;padding:2.5rem;border-radius:.75rem}
 #teams h3{max-width:28.875rem;line-height:1;margin-top:auto;margin-bottom:1.5rem}
+#teams .team-title-last{white-space:nowrap}
+#teams .team-title-arrow{display:inline-block;width:.58em;height:.58em;margin-left:.26em;vertical-align:.04em;opacity:0;transform:translate(-.12em,.12em);transition:opacity .3s ease,transform .4s cubic-bezier(.215,.61,.355,1)}
+#teams .team-card-link{position:absolute;inset:0;z-index:2;border-radius:inherit}
+#teams .team-card-link:focus-visible{outline:2px solid #4066dc;outline-offset:-4px}
+#teams .card:focus-within .team-title-arrow{opacity:1;transform:none}
+@media(hover:hover) and (pointer:fine){#teams .card:hover .team-title-arrow{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#teams .team-title-arrow{transition:none}}
 #teams .card p{max-width:23.75rem;line-height:1.6}
 #teams .glass-unit-art{width:21rem;height:19rem;top:2.75rem;right:2.5rem;margin:0}
 #teams .glass-unit-art img{width:100%;height:100%;object-fit:contain}
-#teams .card:nth-child(2) .glass-unit-art{width:23rem;right:1.75rem}
+#teams .card:nth-child(2) .glass-unit-art{width:27rem;right:.5rem}
 #teams .card:first-child{background:linear-gradient(180deg,#d8ceef 0%,#f5f3f6 73%,#fff 100%)}
 #teams .card:nth-child(2){background:linear-gradient(180deg,#b9d1ed 0%,#f5f7fa 73%,#fff 100%)}
 @media(max-width:991px){
  :root{--section-space:120px;--hero-client-space:96px}
  #teams .glass-unit-art{width:19rem;right:1rem}
- #teams .card:nth-child(2) .glass-unit-art{width:20rem;right:1rem}
+ #teams .card:nth-child(2) .glass-unit-art{width:23rem;right:.25rem}
 }
 @media(max-width:600px){
  :root{--section-space:80px;--hero-client-space:72px}
@@ -44,5 +51,6 @@
  #teams .card,#teams .card:nth-child(2){height:auto;min-height:32rem;padding:1.5rem}
  #teams .glass-unit-art,#teams .card:nth-child(2) .glass-unit-art{position:relative;width:100%;height:14rem;top:auto;right:auto;margin:.5rem 0 1.5rem}
  #teams h3{max-width:100%}
+ #teams .team-title-arrow{position:absolute;top:.12em;right:0;margin-left:0}
  #teams .card p{max-width:100%}
 }
