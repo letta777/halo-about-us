@@ -96,6 +96,17 @@
     prev=y;
   },{passive:true});
   addEventListener('resize',()=>{closeMenu();closeResources();},{passive:true});
+  // Halo's original footer uses data-hover-elem.active to roll the award text.
+  // Keep hover and keyboard focus in sync with the copied component styles.
+  document.querySelectorAll('.site-footer [data-hover]').forEach(target=>{
+    const parts=target.querySelectorAll('[data-hover-elem]');
+    const sync=()=>{
+      const active=target.matches(':hover')||target.matches(':focus-within');
+      parts.forEach(part=>part.classList.toggle('active',active));
+    };
+    parts.forEach(part=>part.classList.remove('active'));
+    ['mouseenter','mouseleave','focusin','focusout'].forEach(event=>target.addEventListener(event,sync));
+  });
   document.querySelectorAll('.site-footer .w-dropdown').forEach((group,i)=>{
     const toggle=group.querySelector('.w-dropdown-toggle'),list=group.querySelector('.w-dropdown-list');
     if(!toggle||!list)return;
