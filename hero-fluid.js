@@ -1,4 +1,4 @@
-/* Original shader: softly warped blue/cyan/orange light inspired by the reference palette. */
+/* Diffuse projected light: broad blue/cyan/orange blends with a soft luminous rim. */
 window.HaloFluidSphere = function (canvas) {
   const gl = canvas.getContext('webgl', {alpha:true, antialias:false, premultipliedAlpha:false, powerPreference:'low-power'});
   if (!gl) return null;
@@ -11,51 +11,37 @@ window.HaloFluidSphere = function (canvas) {
     uniform vec2 u_pointer;
     uniform float u_hover;
     float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-    float noise(vec2 p){
-      vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
-      return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+1.),f.x),f.y);
-    }
-    float fbm(vec2 p){
-      float n=.55*noise(p);p=mat2(.8,-.6,.6,.8)*p*2.03;
-      n+=.28*noise(p+3.1);p=mat2(.8,-.6,.6,.8)*p*2.01;
-      return n+.17*noise(p+7.4);
-    }
-    vec3 palette(float v){
-      vec3 c=mix(vec3(.018,.037,.075),vec3(.14,.29,.51),smoothstep(.05,.27,v));
-      c=mix(c,vec3(.44,.65,.71),smoothstep(.27,.44,v));
-      c=mix(c,vec3(.72,.79,.74),smoothstep(.44,.53,v));
-      c=mix(c,vec3(.91,.43,.19),smoothstep(.53,.65,v));
-      c=mix(c,vec3(.69,.22,.065),smoothstep(.72,.88,v));
-      return mix(c,vec3(.045,.019,.014),smoothstep(.9,1.,v));
-    }
     void main(){
       vec2 p=vec2(v_uv.x-.5,.5-v_uv.y)*2.75;
       float r=length(p);
       if(r>1.36){gl_FragColor=vec4(0.);return;}
       float z=sqrt(max(0.,1.-min(r*r,1.)));
-      vec2 q=p*(1.+.24*(1.-z));
-      vec2 d=q-u_pointer*.76;
-      float influence=exp(-dot(d,d)*3.1)*u_hover;
-      float twist=influence*(.65+.18*sin(u_time*.7));
-      q=u_pointer*.76+mat2(cos(twist),-sin(twist),sin(twist),cos(twist))*d;
-      q+=normalize(d+vec2(.001))*.12*influence*sin(length(d)*9.-u_time*1.6);
-      vec2 flow=vec2(fbm(q*.9+vec2(u_time*.11,-u_time*.065)),fbm(q*.9+vec2(4.7-u_time*.075,2.3)));
-      q+=(flow-.5)*(.58+u_hover*.6)+u_pointer*.12*u_hover;
-      float wave=sin(q.x*1.6+q.y*1.4+fbm(q+u_time*.055)*1.6-1.+sin(u_time*.24)*.65);
-      float band=.5+.45*wave;
-      vec3 color=palette(band);
-      color*=.72+.28*z;
-      vec3 normal=normalize(vec3(p*.78,z));
-      vec3 light=normalize(vec3(-.4+u_pointer.x*.25,-.6+u_pointer.y*.25,1.));
-      float spec=pow(max(dot(normal,light),0.),24.)*(.1+.12*u_hover);
-      color+=vec3(.78,.88,.9)*spec;
-      float grain=(hash(gl_FragCoord.xy)-.5)*.065;
-      color+=grain;
-      float rim=exp(-pow((r-.984)*100.,2.));
-      color+=rim*vec3(.66,.79,.79)*(.13+.12*u_hover);
-      float disc=1.-smoothstep(.99,1.012,r);
-      float halo=exp(-max(r-.98,0.)*20.)*(.17+.14*u_hover);
-      vec3 haloColor=mix(vec3(.22,.44,.7),vec3(.95,.43,.19),smoothstep(-.45,.5,p.y+p.x*.4));
+      vec2 q=p;
+      vec2 d=p-u_pointer*.65;
+      float influence=exp(-dot(d,d)*1.1)*u_hover;
+      float turn=.045*sin(u_time*.18)+influence*(.35+.14*sin(u_time*.44));
+      q=mat2(cos(turn),-sin(turn),sin(turn),cos(turn))*q;
+      q+=vec2(sin(q.y*1.3+u_time*.27),cos(q.x*1.15-u_time*.22))*(.035+.15*u_hover);
+      q+=u_pointer*.23*u_hover;
+      // Overlapping, very broad light fields; no repeating bands or surface relief.
+      float vertical=q.y+.05*sin(u_time*.23);
+      vec3 color=mix(vec3(.022,.10,.19),vec3(.18,.59,.68),smoothstep(-.94,.18,vertical));
+      color=mix(color,vec3(.83,.82,.65),smoothstep(-.25,.60,vertical));
+      color=mix(color,vec3(1.,.31,.075),smoothstep(.15,1.04,vertical));
+      vec2 glow=q-vec2(-.22+.28*sin(u_time*.24),.08);
+      float bloom=exp(-dot(glow,glow)*1.5)*(.08+.10*u_hover);
+      color=mix(color,vec3(.88,.92,.78),bloom);
+      color*=.84+.16*z;
+      color+=(hash(gl_FragCoord.xy)-.5)*.012;
+      float warm=smoothstep(-.75,.72,p.y);
+      vec3 rimColor=mix(vec3(.75,.80,.58),vec3(1.,.79,.40),warm);
+      float rim=exp(-pow((r-.976)*46.,2.));
+      float softRim=exp(-pow((r-.982)*15.,2.));
+      color+=rim*rimColor*(.38+.47*warm+.17*u_hover);
+      color+=softRim*rimColor*.10;
+      float disc=1.-smoothstep(.985,1.022,r);
+      float halo=exp(-max(r-.97,0.)*15.)*(.22+.12*u_hover);
+      vec3 haloColor=mix(vec3(.44,.57,.42),vec3(1.,.40,.11),warm);
       gl_FragColor=vec4(mix(haloColor,color,disc),max(disc,halo));
     }`;
   const shaders = [];
