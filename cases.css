@@ -9,11 +9,11 @@
 #work .case-meta{padding-top:1.5rem}
 #work .case-title{display:flex;align-items:center;gap:.5rem;font-family:Suisse,Arial,sans-serif;font-size:1.5rem;font-weight:500;line-height:1.2;letter-spacing:-.02em;margin:0 0 .5rem}
 #work .case-title-arrow-wrap{display:inline-flex;width:1rem;height:1rem;flex:none;overflow:hidden}
-#work .case-title-arrow{display:block;width:100%;height:100%;transform:translateX(-110%);transition:transform .4s cubic-bezier(.215,.61,.355,1)}
-#work .case-link:focus-visible .case-title-arrow{transform:translateX(0)}
+#work .case-title-arrow{display:block;width:100%;height:100%;opacity:0;visibility:hidden;transform:translateX(-110%);transition:transform .4s cubic-bezier(.215,.61,.355,1),opacity .2s ease}
+#work .case-link:focus-visible .case-title-arrow{opacity:1;visibility:visible;transform:translateX(0)}
 @media(hover:hover) and (pointer:fine){
  #work .case-link:hover .case-art>img{transform:scale(1.1)}
- #work .case-link:hover .case-title-arrow{transform:translateX(0)}
+ #work .case-link:hover .case-title-arrow{opacity:1;visibility:visible;transform:translateX(0)}
 }
 #work .case-meta>p{max-width:25rem;font-size:1rem;font-weight:400;line-height:1.6;letter-spacing:0;color:#02021e99;margin:0}
 #work .case-tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:1.5rem}
