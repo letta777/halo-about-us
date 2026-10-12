@@ -25,24 +25,23 @@ window.HaloFluidSphere = function (canvas) {
       q+=u_pointer*.23*u_hover;
       // Overlapping, very broad light fields; no repeating bands or surface relief.
       float vertical=q.y+.05*sin(u_time*.23);
-      // Vivid reference palette: blue #1266EE, cyan #13BFFA, amber #FFD27A, hot orange #FF4A00.
-      vec3 color=mix(vec3(.071,.400,.933),vec3(.075,.749,.980),smoothstep(-.94,.18,vertical));
-      color=mix(color,vec3(1.,.824,.478),smoothstep(-.25,.60,vertical));
-      color=mix(color,vec3(1.,.290,0.),smoothstep(.15,1.04,vertical));
+      vec3 color=mix(vec3(.022,.10,.19),vec3(.18,.59,.68),smoothstep(-.94,.18,vertical));
+      color=mix(color,vec3(.83,.82,.65),smoothstep(-.25,.60,vertical));
+      color=mix(color,vec3(1.,.31,.075),smoothstep(.15,1.04,vertical));
       vec2 glow=q-vec2(-.22+.28*sin(u_time*.24),.08);
       float bloom=exp(-dot(glow,glow)*1.5)*(.08+.10*u_hover);
-      color=mix(color,vec3(1.,.91,.66),bloom*.65);
-      color*=.94+.06*z;
+      color=mix(color,vec3(.88,.92,.78),bloom);
+      color*=.84+.16*z;
       color+=(hash(gl_FragCoord.xy)-.5)*.012;
       float warm=smoothstep(-.75,.72,p.y);
-      vec3 rimColor=mix(vec3(.74,.86,1.),vec3(1.,.72,.30),warm);
-      float rim=exp(-pow((r-.976)*46.,2.));
-      float softRim=exp(-pow((r-.982)*15.,2.));
-      color+=rim*rimColor*(.38+.47*warm+.17*u_hover);
-      color+=softRim*rimColor*.10;
-      float disc=1.-smoothstep(.985,1.022,r);
-      float halo=exp(-max(r-.97,0.)*15.)*(.22+.12*u_hover);
-      vec3 haloColor=mix(vec3(.14,.47,1.),vec3(1.,.30,.025),warm);
+      vec3 rimColor=mix(vec3(.75,.80,.58),vec3(1.,.79,.40),warm);
+      float rim=exp(-pow((r-.976)*28.,2.));
+      float softRim=exp(-pow((r-.982)*9.,2.));
+      color+=rim*rimColor*(.12+.17*warm+.08*u_hover);
+      color+=softRim*rimColor*.07;
+      float disc=1.-smoothstep(.985,1.035,r);
+      float halo=exp(-max(r-.97,0.)*10.)*(.075+.045*u_hover);
+      vec3 haloColor=mix(vec3(.44,.57,.42),vec3(1.,.40,.11),warm);
       gl_FragColor=vec4(mix(haloColor,color,disc),max(disc,halo));
     }`;
   const shaders = [];
